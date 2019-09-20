@@ -38,6 +38,18 @@ namespace AdvancedTdd.Tests.TestDoubles
             Assert.That(1, Is.EqualTo(gatewaySpy.Id));
         }
 
+        [Test]
+        public void CalculateWage_PassesCorrectId2()
+        {
+            const int id = 1;
+            var gatewayMock = new DbGatewayMock();
 
+            var sut = new Customer(new LoggerDummy(), gatewayMock);
+            gatewayMock.SetWorkingStatistics(new WorkingStatistics());
+
+            sut.CalculateWage(id);
+
+            Assert.IsTrue(gatewayMock.VerifyCalledWithProperId(id));
+        }
     }
 }
