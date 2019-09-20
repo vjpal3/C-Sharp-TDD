@@ -9,11 +9,18 @@ namespace AdvancedTDD.TestDoubles
 {
     public class Customer
     {
-        private readonly Logger _logger = new Logger();
+        private readonly ILogger logger;
+        private readonly IDbGateway gateway;
+
+        // Dependency injection via constructor
+        public Customer(ILogger logger, IDbGateway gateway)
+        {
+            this.logger = logger;
+            this.gateway = gateway;
+        }
 
         public decimal CalculateWage(int id)
         {
-            DbGateway gateway = new DbGateway();
             WorkingStatistics ws = gateway.GetWorkingStatistics(id);
 
             decimal wage;
@@ -25,13 +32,13 @@ namespace AdvancedTDD.TestDoubles
             {
                 wage = ws.MonthSalary;
             }
-            _logger.Info($"Customer ID={id}, Wage:{wage}");
+            logger.Info($"Customer ID={id}, Wage:{wage}");
 
             return wage;
         }
     }
 
-    internal class Logger
+    internal class Logger : ILogger
     {
         public void Info(string s)
         {
@@ -39,7 +46,7 @@ namespace AdvancedTDD.TestDoubles
         }
     }
 
-    public class DbGateway
+    public class DbGateway : IDbGateway
     {
         public WorkingStatistics GetWorkingStatistics(int id)
         {

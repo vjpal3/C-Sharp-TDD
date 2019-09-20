@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestDoubles\IDbGateway.cs" />
+    <Compile Include="TestDoubles\ILogger.cs" />
     <Compile Include="TestDoubles\Sut.cs" />
     <Compile Include="TestDoubles\WorkingStatistics.cs" />
   </ItemGroup>
