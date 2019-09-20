@@ -26,6 +26,18 @@ namespace AdvancedTdd.Tests.TestDoubles
 
         }
 
+        [Test]
+        public void CalculateWage_PassesCorrectId()
+        {
+            const int id = 1;
+            var gatewaySpy = new DbGatewaySpy();
+
+            var sut = new Customer(new LoggerDummy(), gatewaySpy);
+            gatewaySpy.SetWorkingStatistics(new WorkingStatistics());
+            sut.CalculateWage(id);
+            Assert.That(1, Is.EqualTo(gatewaySpy.Id));
+        }
+
 
     }
 }
